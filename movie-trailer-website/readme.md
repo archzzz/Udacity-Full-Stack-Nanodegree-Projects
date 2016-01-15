@@ -1,17 +1,17 @@
 README
 -----------------------------
 
-###Name 
+### Name 
 - Fresh Tomato
 
-###Description
+### Description
 - This is a website where users can watch trailers of my favorite movies.
 
-###Instruction 
+### Instruction 
 - run command: python entertain_center.py 
 
-###Author
+### Author
 - Anqi Zhang (zhangaq2014@gmail.com)
 
-###Acknowledgement
+### Acknowledgement
 - Udacity
