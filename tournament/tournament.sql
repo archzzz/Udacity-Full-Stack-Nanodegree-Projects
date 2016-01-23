@@ -6,25 +6,32 @@
 -- You can write comments in this file by starting them with two dashes, like
 -- these lines here.
 
-create table players(
-	id 		serial primary key,
-	name 	text not null,
-	score 	int not null default 0
+DROP DATABASE IF EXISTS tournament;
+CREATE DATABASE tournament;
+\c tournament
+
+CREATE TABLE players(
+	id 		SERIAL PRIMARY KEY,
+	name 	TEXT NOT NULL,
+	score 	INT NOT NULL DEFAULT 0
 );
 
-create table matches(
-	id 			serial primary key,
-	player1_id	int not null references players(id),
-	player2_id	int not null references players(id),
-	winner_id	int not null,
-	constraint valid_winner check (winner_id = player1_id or winner_id = player2_id)
+CREATE TABLE matches(
+	id 			SERIAL PRIMARY KEY,
+	player1_id	INT NOT NULL REFERENCES players(id),
+	player2_id	INT NOT NULL REFERENCES players(id),
+	winner_id	INT NOT NULL,
+	CONSTRAINT valid_winner CHECK (winner_id = player1_id or winner_id = player2_id)
 );
 
 -- after testStandingsBeforeMatches()
-alter table players rename column score to win;
-alter table players add column match int not null default 0;
+ALTER TABLE players RENAME COLUMN score TO win;
+ALTER TABLE players ADD COLUMN match INT NOT NULL DEFAULT 0;
 
 --after testReportMatches()
-alter table matches drop column player1_id, drop column player2_id;
-alter table matches add column loser_id int not null references players(id);
-alter table matches add foreign key (winner_id) references players(id);
+ALTER TABLE matches DROP COLUMN player1_id, DROP COLUMN player2_id;
+ALTER TABLE matches ADD COLUMN loser_id INT NOT NULL REFERENCES players(id);
+ALTER TABLE matches ADD FOREIGN KEY (winner_id) REFERENCES players(id);
+
+-- after first submission code review
+ALTER TABLE matches ADD CONSTRAINT valid_id CHECK (winner_id != loser_id);
