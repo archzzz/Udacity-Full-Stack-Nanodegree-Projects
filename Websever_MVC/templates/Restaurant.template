@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Edit</title>
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data" action='/update_restaurant'>
+        <h2>Edit restaurant?</h2>
+        <input name="id" type="hidden" value="{restaurant_id}" /> 
+        <input name='name' type="text" value="{restaurant_name}" />
+        <input type="submit" value="Save" /></form>  
+</body>
+</html>

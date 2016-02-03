@@ -1,0 +1,4 @@
+<div>
+    <h4>{restaurant_name}</h4>
+    <a href ="/restaurant?id={restaurant_id}">Edit</a>
+</div>

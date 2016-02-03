@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Restaurants View</title>
+</head>
+<body>
+	<div class="restaurant-container">{restaurant_tiles}</div>
+</body>
+</html>
