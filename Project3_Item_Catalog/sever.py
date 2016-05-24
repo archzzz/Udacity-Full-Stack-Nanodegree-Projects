@@ -44,6 +44,8 @@ def showCatalogs():
 
 @app.route('/catalog/new', methods=['GET','POST'])
 def newItem():
+    if 'username' not in login_session:
+        return redirect(url_for('showLogin'))
     if request.method == 'POST':
         catalog_id = session.query(Catalog).filter_by(name=request.form['catalog']).one().id
         newItem = Item(name=request.form['name'], description=request.form['description'], catalog_id=catalog_id, user_id=login_session['user_id'], create_time=datetime.now())
@@ -57,17 +59,24 @@ def newItem():
 
 @app.route('/catalog/<string:catalog_name>/<string:item_name>/edit', methods=['GET','POST'])
 def editItem(catalog_name, item_name):
+    if 'username' not in login_session:
+        return redirect(url_for('showLogin'))
+
     catalog_id = session.query(Catalog).filter_by(name=catalog_name).one().id
     item = session.query(Item).filter_by(name=item_name).filter_by(catalog_id=catalog_id).one()
+    if item.user_id == None or login_session['user_id'] != item.user_id:
+        flash('Sorry, you have no permission to edit %s. ' % item_name)
+        return redirect(url_for('showOneItem', catalog_name=catalog_name, item_name=item_name))
     if request.method == 'POST':
+        pprint(request.form)
         if request.form['item_name']:
             item.name = request.form['item_name']
         if request.form['description']:
-            item.name = request.form['description']
+            item.description = request.form['description']
         if request.form['item_catalog']:
             item.catalog_id = session.query(Catalog).filter_by(name=request.form['item_catalog']).one().id
         session.commit()
-        flash("Edit item %s " % request.form['item_name'])
+        flash("Edit item %s " % item.name)
         return redirect(url_for('showOneItem', catalog_name=item.catalog.name, item_name=item.name))
     else:
         catalogs = session.query(Catalog).all()
@@ -75,8 +84,14 @@ def editItem(catalog_name, item_name):
 
 @app.route('/catalog/<string:catalog_name>/<string:item_name>/delete', methods=['GET','POST'])
 def deleteItem(catalog_name, item_name):
+    if 'username' not in login_session:
+        return redirect(url_for('showLogin'))
+
     catalog_id = session.query(Catalog).filter_by(name=catalog_name).one().id
     item = session.query(Item).filter_by(name=item_name).filter_by(catalog_id=catalog_id).one()
+    if item.user_id == None or login_session['user_id'] != item.user_id:
+        flash('Sorry, you have no permission to delete %s. ' % item_name)
+        return redirect(url_for('showOneItem', catalog_name=catalog_name, item_name=item_name))
     if request.method == 'POST':
         session.delete(item)
         session.commit()
@@ -230,6 +245,6 @@ def createUser(login_session):
     return user.id
 
 if __name__ == '__main__':
-    app.debug = True
+    app.debug = False
     app.secret_key = 'super secret key'
     app.run(host='0.0.0.0', port=8000)    
