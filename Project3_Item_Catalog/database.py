@@ -57,7 +57,7 @@ class Item(Base):
             'description' : self.description,
             'catalog_id' : self.catalog_id,
             'user_id' : self.user_id,
-            'create_time' : create_time,
+            'create_time' : self.create_time,
         }
     
 
