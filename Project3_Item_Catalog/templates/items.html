@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    {% include "header.html" %}
+    
+    <h1>Catalogs</h1>
+    {% for catalog in catalogs %}
+        <a href="/catalog/{{catalog.name}}/items">
+            <h3>{{ catalog.name}}</h3>
+        </a>
+    {% endfor%}
+
+    <h1>{{ items[0].catalog.name }} Items</h1>
+    {% for item in items %}
+        <a href="/catalog/{{item.catalog.name}}/{{item.name}}">
+            <h3>{{ item.name}}</h3>
+        </a>
+    {% endfor%}
+</body>
+</html>

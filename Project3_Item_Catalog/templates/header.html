@@ -1,0 +1,21 @@
+<head>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<div class="row top-menu">
+    <div class="col-md-6">
+        <a href="/catalog">
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>Show All Catalogs
+        </a>
+    </div>
+    <div class="col-md-6 text-right">
+        {%if 'username' not in session %}
+        <a href="{{url_for('showLogin')}}">Click Here to Login</a>
+        {% else %}
+        Hi, {{ session['username']}}</br>
+        <a href="{{url_for('gdisconnect')}}">Logout</a>
+        {% endif %}
+        
+    </div>
+</div>

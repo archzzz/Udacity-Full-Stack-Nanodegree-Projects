@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    {% include "header.html" %}
+
+    <h1>{{ item.name }}</h1>
+    <p>Catalog: {{ item.catalog.name }}</p>
+    <p>Description: {{ item.description }} </p>
+
+    {% if 'user_id' in session and session['user_id'] == item.user_id %}
+        <a href="{{ url_for('editItem', catalog_name=item.catalog.name, item_name=item.name)}}">
+            <h3>Edit | 
+        </a>
+        <a href="{{ url_for('deleteItem', catalog_name=item.catalog.name, item_name=item.name)}}">
+            Delete</h3>
+        </a>
+    {% endif %}
+
+</body>
+</html>

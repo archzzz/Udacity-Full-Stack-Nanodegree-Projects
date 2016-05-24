@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Catalog</title>
+</head>
+<body>
+    {% include "header.html" %}
+    <div class = 'flash'>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+          
+                <ul>
+                {% for message in messages %}
+                <li> <strong> {{ message }} </strong> </li>
+                {% endfor %}
+                </ul>
+            
+            {% endif %}
+        {% endwith %}
+
+    </div>
+
+    <h1>Categories</h1>
+    {% for catalog in catalogs %}
+        <a href="/catalog/{{catalog.name}}/items">
+            <h3>{{ catalog.name}}</h3>
+        </a>
+    {% endfor%}
+
+    {% if 'username' in session %}
+        <a href="{{url_for('newItem')}}">Add Items </a>
+    {% endif %}
+
+    <h1>Latest Items</h1>
+    {% for item in latest_items %}
+        <h3> {{ item.name }}({{ item.catalog.name }})</h3>
+    {% endfor %}
+
+</body>
+</html>
