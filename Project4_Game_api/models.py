@@ -75,7 +75,8 @@ class Game(ndb.Model):
         self.put()
 
         if self.pairs == NUMBER_OF_PAIRS:
-            time = (self.end_time - self.start_time).seconds    #bug：does not include date
+            diff = self.end_time - self.start_time
+            time = diff.days * 86400 + diff.seconds  
             score = Score(user = self.user, 
                           date = self.start_time.date(), 
                           time = time,

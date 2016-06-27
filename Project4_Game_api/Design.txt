@@ -32,3 +32,6 @@ calculate score rather than calculate it in Score class.
 
 Did not make use of taskqueue and memcache. I think I should use them but 
 cannot find a proper place.
+
+I print debug messages to logs to debug. But it's not very efficient, so I 
+would like to ask about better way to debug. Thank you!

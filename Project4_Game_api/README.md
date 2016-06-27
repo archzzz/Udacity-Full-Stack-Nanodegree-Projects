@@ -36,11 +36,11 @@ given time. Each game can be retrieved or played by using the path parameter
     - Returns: GameForm with initial game state.
     - Description: Creates a new Game. user_name provided must correspond to an
     existing user - will raise a NotFoundException if not. Generates an array of  
-    integers from 1 to 52 in random order to represent a deck of cards:
-        1  ~ 13: Spades Ace ~ King
-        14 ~ 26: Hearts Ace ~ King
-        27 ~ 39: Clubs Ace ~ King
-        40 ~ 52: Diamonds Ace ~ King
+    integers from 0 to 51 in random order to represent a deck of cards:
+        0  ~ 12: Spades Ace ~ King
+        13 ~ 25: Hearts Ace ~ King
+        26 ~ 38: Clubs Ace ~ King
+        39 ~ 51: Diamonds Ace ~ King
      
  - **get_game**
     - Path: 'game/{urlsafe_game_key}'
