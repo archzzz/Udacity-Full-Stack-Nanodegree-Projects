@@ -1,0 +1,24 @@
+application: game-api-4027
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: /_ah/spi/.*
+  script: concentration.api
+  secure: always
+
+- url: /crons/send_reminder
+  script: main.app
+
+libraries:
+- name: webapp2
+  version: latest
+
+- name: endpoints
+  version: latest

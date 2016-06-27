@@ -1,0 +1,34 @@
+Reflection on Design
+
+1. What additional properties did you add to your models and why?
+
+User model has username, email, score. User.score is the total score of 
+user, it is updated when a new score of that user is created. It is used 
+to get user ranking.
+
+History model has two cards and result to record cards flipped by user
+in that move, and the result(correct pair/incorrect pair/win the game).
+
+Game model has user, start end time, steps, game_over flag, gameboard 
+values and flipped flag, number of pairs won, move history.
+Start and end time of the game is used to calculate total time of the game.
+I maintain a gameboard for web frontend, use two 1*52 arrays to record card
+values of each slot, and whether it is flipped by player. 
+Move history is recorded by a list of History models.
+
+Score model has time, step, user, date and score. Score is calculated with
+time and steps player took. And time and steps are useful for performance 
+evaluation.
+
+
+2. What were some of the trade-offs or struggles you faced when implementing 
+the new game logic?
+
+Score model has some duplicate properties as Game model. I think steps and 
+time are very useful details of score record. Since Score is only associated 
+with User, the only way I can get those information later, is keep a copy in
+Score entity. Also, to make code more clean, I wrote a helper function to 
+calculate score rather than calculate it in Score class.
+
+Did not make use of taskqueue and memcache. I think I should use them but 
+cannot find a proper place.
