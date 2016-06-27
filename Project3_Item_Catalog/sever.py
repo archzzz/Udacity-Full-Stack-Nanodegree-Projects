@@ -68,7 +68,6 @@ def editItem(catalog_name, item_name):
         flash('Sorry, you have no permission to edit %s. ' % item_name)
         return redirect(url_for('showOneItem', catalog_name=catalog_name, item_name=item_name))
     if request.method == 'POST':
-        pprint(request.form)
         if request.form['item_name']:
             item.name = request.form['item_name']
         if request.form['description']:
