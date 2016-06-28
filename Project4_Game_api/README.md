@@ -8,6 +8,24 @@ are turned face down again.The game ends when the last pair has been picked up.
 'Moves' are sent to the `make_move` endpoint which will reply with either: 
 'Correct pair!', 'Incorrect pair!', 'You win!'
 
+User only get score from complelted games. Score is calculated with time and 
+steps:
+    time: 
+        <50s    10     |   <100s   5
+        <60s    9      |   <110s   4
+        <70s    8      |   <120s   3
+        <80s    7      |   <130s   2
+        <90s    6      |   else    1
+                        
+    steps: 
+        <30    10      |   <130   5
+        <50    9       |   <150   4
+        <70    8       |   <170   3
+        <90    7       |   <190   2
+        <110   6       |   else   1
+    
+    score = time * steps
+
 Many different Concentration games can be played by many different Users at any
 given time. Each game can be retrieved or played by using the path parameter
 `urlsafe_game_key`.
@@ -84,7 +102,7 @@ given time. Each game can be retrieved or played by using the path parameter
 
 - **cancel_game**
     - Path: 'game/cancel/{urlsafe_game_key}'
-    - Method: PUT
+    - Method: DELETE
     - Parameters: urlsafe_game_key
     - Returns: StringMessage
     - Description: Delete a game of the given urlsafe_game_key from the datastore.
@@ -92,7 +110,7 @@ given time. Each game can be retrieved or played by using the path parameter
 
 - **get_high_scores**
     - Path: 'high_score'
-    - Method: PUT
+    - Method: GET
     - Parameters: number_of_result
     - Returns: ScoreForms.
     - Description: Returns a given number of highest scores, in decreasing order. If no 
@@ -100,7 +118,7 @@ given time. Each game can be retrieved or played by using the path parameter
 
 - **get_user_ranking**
     - Path: 'ranking'
-    - Method: POST
+    - Method: GET
     - Parameters: None
     - Returns: RankForms
     - Description: Return the name and score of all users, ranked in decreasing order 
@@ -108,7 +126,7 @@ given time. Each game can be retrieved or played by using the path parameter
 
 - **get_game_history**
     - Path:'game/history/{urlsafe_game_key}'
-    - Method: POST
+    - Method: GET
     - Parameters: urlsafe_game_key
     - Returns: HistoryForms
     - Description: Return all history moves of a given game.

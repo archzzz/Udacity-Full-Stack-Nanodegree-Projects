@@ -154,7 +154,7 @@ class ConcentrationGameApi(remote.Service):
                       response_message=StringMessage,
                       path='game/cancel/{urlsafe_game_key}',
                       name='cancel_game',
-                      http_method='PUT')
+                      http_method='DELETE')
     def cancel_game(self, request):
         """Cancel a game in progress"""
         game = get_by_urlsafe(request.urlsafe_game_key, Game)
@@ -170,7 +170,7 @@ class ConcentrationGameApi(remote.Service):
                       response_message=ScoreForms,
                       path='high_score',
                       name='get_high_scores',
-                      http_method='PUT')
+                      http_method='GET')
     def get_high_scores(self, request):
         """Get high scores in decreasing order"""
         if not request.number_of_result:
@@ -183,7 +183,7 @@ class ConcentrationGameApi(remote.Service):
     @endpoints.method(response_message=RankForms,
                       path='ranking',
                       name='get_user_ranking',
-                      http_method='POST')
+                      http_method='GET')
     def get_user_ranking(self, request):
         """Get all users ranked by score"""
         users = User.query().order(-User.score)
@@ -193,7 +193,7 @@ class ConcentrationGameApi(remote.Service):
                       response_message=HistoryForms,
                       path='game/history/{urlsafe_game_key}',
                       name='get_game_history',
-                      http_method='POST')
+                      http_method='GET')
     def get_game_history(self, request):
         """Get all history moves of a game"""
         game = get_by_urlsafe(request.urlsafe_game_key, Game)
