@@ -1,7 +1,7 @@
 Your README.md file should include all of the following:
 
 i. The IP address and SSH port so your server can be accessed by the reviewer.
-IP address: 52.41.151.121
+**IP address: 52.41.151.121**
 SSH port: 2200
 
 
