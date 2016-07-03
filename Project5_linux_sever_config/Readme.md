@@ -15,6 +15,7 @@ iii. A summary of software you installed and configuration changes made.
 
 I installed:
 apache, postgresql, git, cgi, flask, pip, google_api_python_client
+
 Configuration changes:
 created user grader, added to sudoer list
 changed ssh prot from 22 to 2200
